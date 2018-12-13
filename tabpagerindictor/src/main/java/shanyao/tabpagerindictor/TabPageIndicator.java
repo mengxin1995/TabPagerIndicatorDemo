@@ -75,6 +75,7 @@ public class TabPageIndicator extends HorizontalScrollView {
     private int indicatorPaddingRight = 0;// 距离右边的距离
 
     private int tabTextSize = 16;//标题的字体大小
+    private int tabTextSizeSelected = 50;//标题选中时的的字体大小
     private int tabTextColor = 0xFF666666;// 标题未被选中时字体颜色
     private int tabTextColorSelected = Color.parseColor("#ffffff");// 标题被选中时字体颜色
 
@@ -305,7 +306,7 @@ public class TabPageIndicator extends HorizontalScrollView {
             if (v instanceof TextView) {
 
                 TextView tab = (TextView) v;
-                tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
+                tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, i == 0 ? tabTextSizeSelected : tabTextSize);
                 tab.setTextColor(i == 0 ? tabTextColorSelected : tabTextColor);
                 //大小写切换
                 if (textAllCaps) {
@@ -491,6 +492,7 @@ public class TabPageIndicator extends HorizontalScrollView {
                 View v = tabsContainer.getChildAt(i);
                 if (v instanceof TextView) {
                     TextView textView = (TextView) v;
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, i == pager.getCurrentItem() ? tabTextSizeSelected : tabTextSize);
                     textView.setTextColor(i == pager.getCurrentItem() ? tabTextColorSelected : tabTextColor);
                 }
             }
@@ -599,6 +601,15 @@ public class TabPageIndicator extends HorizontalScrollView {
 
     public int getTextSize() {
         return tabTextSize;
+    }
+
+    public void setTextSizeSelected(int textSizePx) {
+        this.tabTextSizeSelected = textSizePx;
+        updateTabStyles();
+    }
+
+    public int getTextSizeSelected() {
+        return tabTextSizeSelected;
     }
 
     public void setTextColor(int textColor) {
